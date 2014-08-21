@@ -1,0 +1,15 @@
+#!/bin/bash
+
+TUPLE=$(rhc app show training | grep Scaling | awk '{print $4 " " $6}'| sed 's/[\,\)]/ /g')
+
+if [[ $(echo $TUPLE | awk '{print $1}') -lt '2' ]]; then
+    rhc cartridge-scale jbosseap-6 -a training --min 2 --max 2
+fi
+if [[ $(echo $TUPLE | awk '{print $1}') -ge '2' ]]; then
+    if [[ $(echo $TUPLE | awk '{print $1}') -lt '4' ]]; then
+        rhc cartridge-scale jbosseap-6 -a training --min 4 --max 4
+    fi
+    if [[ $(echo $TUPLE | awk '{print $1}') -gt '4' ]]; then
+        rhc cartridge-scale jbosseap-6 -a training --min 4 --max 4
+    fi
+fi

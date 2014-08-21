@@ -1,0 +1,1 @@
+rhc set-env JAVA_OPTS_EXT='-Xmx126M -XX:MaxPermSize=100M' -a training
