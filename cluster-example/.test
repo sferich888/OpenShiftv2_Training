@@ -1,0 +1,1 @@
+if [[ $(curl -Ls $(rhc app show training | head -n 1 | awk '{print $3}')/cluster-example/ | grep "Self Test:" | sed -r 's/<.{1,2}>//g' | awk '{print $3}') == "PASS" ]]; then echo PASS; else echo FAIL; fi
