@@ -227,23 +227,38 @@
                     <tr>
                         <td><a href="/marker-example">Marker Files</a></td>
                         <td align="right">
-                            <% boolean marker_mod=false; %>
-                            <% if( System.getProperty("java.version").substring(0,3).equals("1.6")){ out.write("PASS"); marker_mod=true;} else out.write("FAIL"); %>
+                            <% boolean marker_mod=false; 
+                               if( System.getProperty("java.version").substring(0,3).equals("1.6")){ out.write("PASS"); marker_mod=true;} else out.write("FAIL"); %>
                         </td>
                     </tr>
                     <tr>
                         <td><a href="/variable-example">Enviornment Variables</a></td>
                         <td align="right">
-                            <% boolean variable_mod=false; %>
-                            <% if( System.getenv("JAVA_OPTS_EXT").equals("-Xmx126M -XX:MaxPermSize=100M")){ out.write("PASS"); variable_mod=true;} else out.write("FAIL"); %>
+                            <% boolean variable_mod=false; 
+                               try {
+                                 if( System.getenv("JAVA_OPTS_EXT").equals("-Xmx126M -XX:MaxPermSize=100M")){ 
+                                     out.write("PASS");
+                                     variable_mod=true;
+                                 } 
+                                 else {
+                                     out.write("FAIL"); 
+                                 }
+                               } 
+                               catch (NullPointerException e){ 
+                                  out.write("FAIL"); 
+                               } 
+                               finally {
+                                  out.write("");
+                               } 
+                             %>
                         </td>
                     </tr>
                     <tr>
                         <td><a href="/cluster-example">Scaled Applications / JBoss Clustering</a></td>
                         <td align="right">
-                            <% boolean cluster_mod=false; %>
-                            <% String[] nodes = System.getenv("OPENSHIFT_JBOSSEAP_CLUSTER").split(","); %>
-                            <% if( nodes.length == 4 ){ out.write("PASS"); cluster_mod=true;} else out.write("FAIL"); %></b>
+                            <% boolean cluster_mod=false;
+                               String[] nodes = System.getenv("OPENSHIFT_JBOSSEAP_CLUSTER").split(","); 
+                               if( nodes.length == 4 ){ out.write("PASS"); cluster_mod=true;} else out.write("FAIL"); %></b>
                         </td>
                     </tr>
                     <tr>
