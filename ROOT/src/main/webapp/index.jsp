@@ -228,7 +228,7 @@
                         <td><a href="/marker-example">Marker Files</a></td>
                         <td align="right">
                             <% boolean marker_mod=false; 
-                               if( System.getProperty("java.version").substring(0,3).equals("1.6")){ out.write("PASS"); marker_mod=true;} else out.write("FAIL"); %>
+                               if( System.getProperty("java.version").substring(0,3).equals("1.6")){ out.write("Java#"); marker_mod=true;} else out.write(""); %>
                         </td>
                     </tr>
                     <tr>
@@ -237,15 +237,15 @@
                             <% boolean variable_mod=false; 
                                try {
                                  if( System.getenv("JAVA_OPTS_EXT").equals("-Xmx126M -XX:MaxPermSize=100M")){ 
-                                     out.write("PASS");
+                                     out.write("Shifter");
                                      variable_mod=true;
                                  } 
                                  else {
-                                     out.write("FAIL"); 
+                                     out.write(""); 
                                  }
                                } 
                                catch (NullPointerException e){ 
-                                  out.write("FAIL"); 
+                                  out.write(""); 
                                } 
                                finally {
                                   out.write("");
@@ -258,13 +258,10 @@
                         <td align="right">
                             <% boolean cluster_mod=false;
                                String[] nodes = System.getenv("OPENSHIFT_JBOSSEAP_CLUSTER").split(","); 
-                               if( nodes.length == 4 ){ out.write("PASS"); cluster_mod=true;} else out.write("FAIL"); %></b>
+                               if( nodes.length == 4 ){ out.write("JGroups4"); cluster_mod=true;} else out.write(""); %></b>
                         </td>
                     </tr>
                     <tr>
-                        <td><b>Completion Code:</b></td>
-                        <td align="right">
-                            <% if( marker_mod==true && variable_mod==true && cluster_mod==true ){ out.write("<b>OpenShiftFUN!</b>");} else out.write("Not Complete"); %>
                         </td>
                     </tr>
                 </table>
