@@ -217,16 +217,16 @@
           <section class='col-xs-12 col-sm-12 col-md-12'>
             <section>
               <h2>OpenShift Marker Files</h2>
-                <p>OpenShift uses enviornment varables for a number of different reasons, where <a href="/variable-example/">enviornment variables</a> don't work. A good example of the marker files is the <b>java7</b> and <b>java6</b> files found in <i>.openshift/markers/</i> of your working git directory. Typicaly marker files are used when you want a configurable part of the container to change, but if the gear were to mover or get rebuild, this value would not chagne.</p>
-                <p>For more informaion the <a href="https://access.redhat.com/documentation/en-US/OpenShift_Enterprise/2/html-single/User_Guide/index.html">OpenShift User Guide</a></p>
+                <p>OpenShift uses environment variables for a number of different reasons, where <a href="/variable-example/">environment variables</a> do not work. A good example of marker files is the <b>java7</b> and <b>java6</b> files found in <i>.openshift/markers/</i> of your working git directory. Typically marker files are used when you want a configurable part of the container to change, but if the gear were to move or get rebuilt, this value would not change.</p>
+                <p>For more information the <a href="https://access.redhat.com/documentation/en-US/OpenShift_Enterprise/2/html-single/User_Guide/index.html">OpenShift User Guide</a></p>
 
-                <h3>Viewing the JBoss Gears Java vesion</h3>
-                <p>This example has been configured to display the jvm version that your JBoss server is using with-in the gear.</p>
+                <h3>Viewing the JBoss Gears Java vesion:</h3>
+                <p>This example has been configured to display the jvm version that your JBoss server is using within the gear.</p>
 
                 <p>Current JVM Version: <%= System.getProperty("java.version").substring(0,3) %></p>
 
              <h2>Self Examination</h2>
-             <p>Change the JVM version, by checking in the appropriate marker file. Currently the test is setup to fail, unless you are running 1.6 JVM.<i>Refresh the page after committing the marker file and restarting the application to see if you pass the Self Test</i>!</p>
+             <p>Change the JVM version, by checking in the appropriate marker file. Currently the test is set up to fail, unless you are running 1.6 JVM.<i>Refresh the page after committing the marker file and restarting the application to see if you pass the Self Test</i>!</p>
 	     <p>Self Test: <b><% if( System.getProperty("java.version").substring(0,3).equals("1.6")) out.write("PASS"); else out.write("FAIL") ; %></b></p>
              <br/>
              <a href="/">Return to Main Training Page</a>

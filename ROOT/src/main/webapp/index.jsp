@@ -217,12 +217,12 @@
             <section>
 
                 <h2>Training Targets</h2>
-                <p>To get started you will need to modify this application using the Web Console or <a href="https://www.openshift.com/developers/rhc-client-tools-install">OpenShift RHC client tools</a> to complete tasks assoceated with the training. These training targets are designed to help you understand some of the key fundamentals of what it takes to work with OpenShift:</p>
+                <p>To get started, you will need to modify this application using the Web Console or <a href="https://www.openshift.com/developers/rhc-client-tools-install">OpenShift RHC client tools</a> to complete tasks associated with the training. These training targets are designed to help you understand some of the key fundamentals of what it takes to work with OpenShift:</p>
 
                 <table>
                     <tr>
                         <td><b>Training</b></td>
-                        <td><b>Competion Code</b></td>
+                        <td><b>Completion Code</b></td>
                     </tr>
                     <tr>
                         <td><a href="/marker-example">Marker Files</a></td>
@@ -232,7 +232,7 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><a href="/variable-example">Enviornment Variables</a></td>
+                        <td><a href="/variable-example">Environment Variables</a></td>
                         <td align="right">
                             <% boolean variable_mod=false; 
                                try {
@@ -266,7 +266,7 @@
                     </tr>
                 </table>
 
-                <p><b>Note:</b> You may need to restart the the gear, <code>rhc app restart <%out.write(System.getenv("OPENSHIFT_APP_NAME"));%></code>, to get the completion code or <b>Self Tests</b> to properly populate on the web page.</p>
+                <p><b>Note:</b> You may need to restart the the gear (<code>rhc app restart <%out.write(System.getenv("OPENSHIFT_APP_NAME"));%></code>), to get the completion code or <b>Self Tests</b> to properly populate on the web page.</p>
 
             </section>
 
@@ -283,7 +283,7 @@
                 </p>
 
                 <h3>Debugging</h3>
-                <p>If you need help or run into problems, please be sure to consult the following guides for help!</p>
+                <p>If you need help or run into problems, please be sure to consult the following guides for help:</p>
                 <ul>
                   <li><a href="https://www.openshift.com/user-guide">User Guide</a></li>
                   <li><a href="https://access.redhat.com/documentation/en-US/OpenShift_Enterprise/2/html-single/Troubleshooting_Guide/index.html">Troubleshooting Guide</a></li>

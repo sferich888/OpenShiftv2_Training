@@ -219,16 +219,16 @@
 <body>
  <section class='container'>
           <hgroup>
-            <h1>Welcome to the Variable's example for OpenShift Training</h1>
+            <h1>Welcome to the Variable's example of the OpenShift Training</h1>
           </hgroup>
 
         <div class="row">
           <section class='col-xs-12 col-sm-12 col-md-12'>
               <h2>OpenShift Environment Variables</h2>
-                <p>OpenShift uses enviornment varables for a number of different reasons! Environment variables are placeholders for values that are provided to a software program at runtime. They are particularly useful when the values are likely to be different from one host system to the next, or from one run to the next. Including these placeholders in applications makes the application code more portable and flexible. This flexibility is critical for writing applications that are easily deployed and scaled on OpenShift Enterprise. For more informaion the <a href="https://access.redhat.com/documentation/en-US/OpenShift_Enterprise/2/html-single/User_Guide/index.html#sect-Environment_Variables">OpenShift User Guide [Environment Varables]</a> has more infomrmaion on this.</p>
+                <p>OpenShift uses environment variables for a number of different reasons. Environment variables are placeholders for values that are provided to a software program at runtime. They are particularly useful when the values are likely to be different from one host system to the next, or from one run to the next. Including these placeholders in applications makes the application code more portable and flexible. This flexibility is critical for writing applications that are easily deployed and scaled on OpenShift Enterprise. For more information, see the <a href="https://access.redhat.com/documentation/en-US/OpenShift_Enterprise/2/html-single/User_Guide/index.html#sect-Environment_Variables">OpenShift User Guide [Environment Varables]</a>.</p>
 
-                <h3>Viewing the Gear's Enviornment Variables</h3>
-                <p>If you are ssh'ed into your gear, it is fairly simple to view your enviornment varables by looking at the files found under the <b>.env</b> directory or sub directories. In addition to this you can also view them using the rhc tooling.</p>
+                <h3>Viewing the Gear's Environment Variables</h3>
+                <p>If you are ssh'ed into your gear, it is fairly simple to view your environment variables by looking at the files found under the <b>.env</b> directory or sub directories. In addition to this you can also view them using the rhc tooling.</p>
 <pre>$ rhc ssh training "for var in \\$(ls .env/ | grep -v user_vars); do echo -n \"\\$var=\"; cat .env/\\$var; echo; done"</pre>
 
 <p>The following is a sample list of what you should see:</p>
@@ -247,12 +247,12 @@
 %>
 </ul>
 
-                <p>In addition to the GEAR's enviornment variables, users can create ther own <a href="https://access.redhat.com/documentation/en-US/OpenShift_Enterprise/2/html-single/User_Guide/index.html#Custom_Environment_Variables3">Custom Environment Varables</a>. You can also use RHC to see what you have defined with the following:</p>
+                <p>In addition to the GEAR's envirinment variables, users can create their own <a href="https://access.redhat.com/documentation/en-US/OpenShift_Enterprise/2/html-single/User_Guide/index.html#Custom_Environment_Variables3">Custom Environment Variables</a>. You can also use RHC to see what you have defined with the following:</p>
 
 <pre>$ rhc env list</pre>
 
              <h2>Example</h2>
-             <p>The example below shows how the memory settings of a JBoss appliction can be altered using <a href="https://access.redhat.com/node/884883">Knowladge Base Article 884883</a>. If this is your first time seeing this page the application is using the system defaults, as defined by the <a href="https://github.com/openshift/origin-server/blob/master/cartridges/openshift-origin-cartridge-jbosseap/versions/shared/bin/standalone.conf#L73-L85">JBoss Configuration</a>. Try adjusting the <b>-Xmx</b> or the <b>-XX:MaxPermSize</b> settings in the <b>JAVA_OPTS_EXT</b> variable, to see how the memory useage bar's react.</p>
+             <p>The example below shows how the memory settings of a JBoss appliction can be altered using <a href="https://access.redhat.com/node/884883">Knowladge Base Article 884883</a>. If this is your first time seeing this page then the application is using the system defaults, as defined by the <a href="https://github.com/openshift/origin-server/blob/master/cartridges/openshift-origin-cartridge-jbosseap/versions/shared/bin/standalone.conf#L73-L85">JBoss Configuration</a>. Try adjusting the <b>-Xmx</b> or the <b>-XX:MaxPermSize</b> settings in the <b>JAVA_OPTS_EXT</b> variable, to see how the memory useage bar reacts.</p>
              <ul>
                  <li><b>Note:</b> To see the full effect you may need to restart the application.</li>
                  <li><b>Note:</b> Altering these setting to high or two low (or even in-properly) can cause the application not to start. Use <b>rhc tail <%=System.getenv("OPENSHIFT_APP_NAME")%></b> to troubleshoot issues you may run into.</li>
@@ -315,7 +315,7 @@
               </tbody>
              </table>
              <h2>Self Examination</h2>
-             <p>Using the running example above set the memory setting on this gear to use <b>126M</b> for the HEAP maximum and <b>100M</b> for the PermSpace Maximum. This will alter the <a href="https://access.redhat.com/solutions/391033">default memmory allocation</a> for the JBoss gear, to allow more room for other (potental) cartridges. </p>
+             <p>Using the running example above, set this gear to use a memory setting of <b>126M</b> for the HEAP maximum and <b>100M</b> for the PermSpace Maximum. This will alter the <a href="https://access.redhat.com/solutions/391033">default memory allocation</a> for the JBoss gear, to allow more room for other (potential) cartridges. </p>
              <p>Self Test: <b>
                  <% 
                     try {
