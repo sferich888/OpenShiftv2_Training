@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [[ -a .openshift/markers/java7 ]]; then
+    rm .openshift/markers/java7; 
+fi
+if [[ ! -a .openshift/markers/java6 ]]; then
+    touch .openshift/markers/java6
+fi
+if [[ $(git ls-files .openshift/markers/java6 --error-unmatch) == 1 ]]; then
+    git commit -a .openshift/markers/java6 -m "Switching JVM"; git push
+fi
