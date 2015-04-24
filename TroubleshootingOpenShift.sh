@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TMP_DIR="/home/openshift/.tmp/openshift"
+TMP_DIR="/home/openshift/.openshift"
 bold=`tput bold`
 normal=`tput sgr0`
 
@@ -14,6 +14,7 @@ function usage(){
 
 function Lab1Break(){
     echo "Setting up Break Fix Lab1"
+    mkdir -p $TMP_DIR
     sudo cp /etc/openshift/broker.conf $TMP_DIR/bf1.break
     sudo sed -i 's/MONGO_USER="openshift"/#Original Setting: MONGO_USER="openshift"\nMONGO_USER="shifter"/' /etc/openshift/broker.conf
     sudo service openshift-broker restart &> /dev/null
@@ -23,6 +24,7 @@ function Lab1Break(){
     echo "Then use your troubleshooting skills to identify the issue and resolve it."
 }
 function Lab1Check(){
+    mkdir -p $TMP_DIR 
     if [[ -e $TMP_DIR/bf1.break ]]; then
         rhc server &> /dev/null
         if [[ $? -eq 0 ]]; then 
@@ -36,6 +38,7 @@ function Lab1Check(){
     fi
 }
 function Lab1Reset(){
+    mkdir -p $TMP_DIR
     if [[ -e $TMP_DIR/bf1.break ]]; then
         sudo cp $TMP_DIR/bf1.break /etc/openshift/broker.conf 
         sudo service openshift-broker restart &> /dev/null
