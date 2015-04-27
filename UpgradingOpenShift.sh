@@ -1,5 +1,4 @@
 #!/bin/sh
-TMP_DIR="/home/openshift/.tmp/openshift"
 bold=`tput bold`
 normal=`tput sgr0`
 
@@ -14,24 +13,20 @@ function usage(){
 	echo "  Prints a completion code upon success."
 }
 
-function break_upgrade(){
-	echo "Breaking the environment to simulate an upgrade issue..."
-}
-
 function upgrade_check(){
 	echo "Checking for successful upgrade. This may take a few minutes..."
 	release_out=`cat /etc/openshift-enterprise-release`
 	release_code=`grep "2.2.*" /etc/openshift-enterprise-release &> /dev/null; echo $?`
 	if [[ $release_code == 0 ]]; then
 		echo "OpenShift Version: $release_out"
-		diag_out=`sudo oo-diagnostics 2>1`
+		echo "  ${bold}Note:${normal} this may not be 100% right."
+		diag_out=`sudo oo-diagnostics`
 		diag_code=`echo $?`
 		if [[ $diag_code == 0 ]]; then
 			echo "Diagnostics pass!"
 			print_code "upgrade_check"
 		else
-			echo "Diagnostics failed:"
-			echo $diag_out
+            echo "Diagnostics ${bold}FAILED${normal}: use the output above, or ${bold}oo-diagnostics${normal}, to correct this."
 			exit 1
 		fi
 	else
@@ -40,15 +35,9 @@ function upgrade_check(){
 	fi
 }
 
-function break_check(){
-	echo "Checking for resolution of issue introduced by 'break'..."
-}
-
 function print_code(){
 	if [[ $1 == "upgrade_check" ]]; then
-		echo "Completion Code: ${bold}Openshift5ever${normal}"
-	elif [[ $1 == "break_check" ]]; then
-		echo "Completion Code: ${bold}CloudFoundryIsLame${normal}"
+		echo "Completion Code: ${bold}Openshift4ever${normal}"
 	fi
 }
 
@@ -59,20 +48,15 @@ else
 fi
 exit 0
 
-# Ignored
 if [[ -n $1 ]]; then
 	arg=`echo $1 | tr '[:upper:]' '[:lower:]'`
 	if [[ $arg == "check" ]]; then
 		arg2=`echo $2 | tr '[:upper:]' '[:lower:]'`
 		if [[ $arg2 == "upgrade" ]]; then
 			upgrade_check	
-		elif [[ arg2 == "break" ]]; then
-			break_check
 		else
 			echo "Unrecognized check argument."
 		fi
-	elif [[ arg == "break" ]]; then
-		break_upgrade
 	else
 		echo "Unrecognized argument"
 	fi
