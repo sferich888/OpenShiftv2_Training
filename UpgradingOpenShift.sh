@@ -14,25 +14,34 @@ function usage(){
 }
 
 function upgrade_check(){
-	echo "Checking for successful upgrade. This may take a few minutes..."
-	release_out=`cat /etc/openshift-enterprise-release`
-	release_code=`grep "2.2.*" /etc/openshift-enterprise-release &> /dev/null; echo $?`
-	if [[ $release_code == 0 ]]; then
-		echo "OpenShift Version: $release_out"
-		echo "  ${bold}Note:${normal} this may not be 100% right."
-		diag_out=`sudo oo-diagnostics`
-		diag_code=`echo $?`
-		if [[ $diag_code == 0 ]]; then
-			echo "Diagnostics pass!"
-			print_code "upgrade_check"
-		else
-            echo "Diagnostics ${bold}FAILED${normal}: use the output above, or ${bold}oo-diagnostics${normal}, to correct this."
-			exit 1
-		fi
-	else
-		echo "OpenShift version is not 2.2:"
-		echo "$release_out"
-	fi
+        echo "Checking for successful upgrade. This may take a few minutes..."
+        release_out=`cat /etc/openshift-enterprise-release`
+        release_code=`grep "2.2.*" /etc/openshift-enterprise-release &> /dev/null; echo $?`
+        if [[ $release_code == 0 ]]; then
+                echo "OpenShift Version: $release_out"
+                echo "    ${bold}Note${normal}: This may not be 100% correct!"
+                # Checking Vhost
+                vhost_code=`sudo grep -io vhost /etc/openshift/node.conf &> /dev/null; echo $?`
+                if [[ $vhost_code == 0 ]]; then
+                    echo "vhost pass!"
+                else
+                    echo "vhost check failed." 
+                    echo "  Please follow ${bold}https://access.redhat.com/documentation/en-US/OpenShift_Enterprise/2/html-single/Administration_Guide/index.html#Changing_Front-end_HTTP_Server_Plug-in_Configuration${normal} to complete this step."
+                    exit 1
+                fi
+                diag_out=`sudo oo-diagnostics`
+                diag_code=`echo $?`
+                if [[ $diag_code == 0 ]]; then
+                        echo "Diagnostics pass!"
+                        print_code "upgrade_check"
+                else
+                        echo "Diagnostics failed: run ${bold}oo-diagnostics${normal} to see errors."
+                        exit 1
+                fi
+        else
+                echo "OpenShift version is not 2.2:"
+                echo "$release_out"
+        fi
 }
 
 function print_code(){
